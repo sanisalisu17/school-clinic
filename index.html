@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GreenCare Hospital Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">+</div>
+
+            <div>
+                <h2>GreenCare</h2>
+                <small>Hospital Management</small>
+            </div>
+        </div>
+
+        <nav class="navigation">
+
+            <button class="nav-item active" data-section="dashboard">
+                <span>▦</span>
+                Dashboard
+            </button>
+
+            <button class="nav-item" data-section="patients">
+                <span>♙</span>
+                Patients
+            </button>
+
+            <button class="nav-item" data-section="doctors">
+                <span>⚕</span>
+                Doctors
+            </button>
+
+            <button class="nav-item" data-section="nurses">
+                <span>♧</span>
+                Nurses
+            </button>
+
+            <button class="nav-item" data-section="appointments">
+                <span>◷</span>
+                Appointments
+            </button>
+
+            <button class="nav-item" data-section="announcements">
+                <span>◉</span>
+                Announcements
+            </button>
+
+            <button class="nav-item" data-section="settings">
+                <span>⚙</span>
+                Settings
+            </button>
+
+        </nav>
+
+        <div class="system-status">
+
+            <span class="online-dot"></span>
+
+            <div>
+                <strong>System Online</strong>
+                <small>Local Storage</small>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <button class="menu-button" id="menuButton">
+                ☰
+            </button>
+
+            <div>
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="pageDescription">
+                    Hospital overview and daily activities
+                </p>
+            </div>
+
+            <div class="top-right">
+
+                <span id="currentDate"></span>
+
+                <div class="user-avatar">
+                    A
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+        <div class="content">
+
+
+            <!-- ================= DASHBOARD ================= -->
+            <section class="section active" id="dashboard">
+
+                <div class="welcome-box">
+
+                    <div>
+                        <small>WELCOME BACK</small>
+
+                        <h2>
+                            Hospital Overview
+                        </h2>
+
+                        <p>
+                            Manage patients, medical staff,
+                            appointments and hospital announcements.
+                        </p>
+                    </div>
+
+                    <button class="btn primary" data-go="patients">
+                        + Register Patient
+                    </button>
+
+                </div>
+
+
+                <!-- STATISTICS -->
+                <div class="statistics">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            ♙
+                        </div>
+
+                        <div>
+                            <span>Total Patients</span>
+                            <strong id="totalPatients">0</strong>
+                            <small>Registered patients</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            ⚕
+                        </div>
+
+                        <div>
+                            <span>Doctors</span>
+                            <strong id="totalDoctors">0</strong>
+                            <small>Medical staff</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            ♧
+                        </div>
+
+                        <div>
+                            <span>Nurses</span>
+                            <strong id="totalNurses">0</strong>
+                            <small>Nursing staff</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            ◷
+                        </div>
+
+                        <div>
+                            <span>Appointments</span>
+                            <strong id="totalAppointments">0</strong>
+                            <small>Scheduled appointments</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DASHBOARD ROW -->
+                <div class="dashboard-grid">
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <h3>Recent Patients</h3>
+                                <p>Latest registered patients</p>
+                            </div>
+
+                            <button class="link-button" data-go="patients">
+                                View All
+                            </button>
+
+                        </div>
+
+                        <div class="table-container">
+
+                            <table>
+
+                                <thead>
+
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>ID</th>
+                                        <th>Gender</th>
+                                        <th>Diagnosis</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody id="recentPatients"></tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <div class="card-header">
+
+                            <div>
+                                <h3>Announcements</h3>
+                                <p>Latest hospital notices</p>
+                            </div>
+
+                            <button class="link-button" data-go="announcements">
+                                Manage
+                            </button>
+
+                        </div>
+
+                        <div id="dashboardAnnouncements"
+                             class="announcement-list">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- UPCOMING APPOINTMENTS -->
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>Upcoming Appointments</h3>
+                            <p>Scheduled consultations</p>
+                        </div>
+
+                        <button class="link-button"
+                                data-go="appointments">
+                            View All
+                        </button>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="upcomingAppointments"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PATIENTS ================= -->
+            <section class="section" id="patients">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Patients</h2>
+
+                        <p>
+                            Manage hospital patient records.
+                        </p>
+                    </div>
+
+                    <button class="btn primary"
+                            id="addPatientButton">
+                        + Add Patient
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="filters">
+
+                        <div class="search-box">
+                            🔍
+                            <input
+                                type="text"
+                                id="patientSearch"
+                                placeholder="Search patient..."
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Patient ID</th>
+                                    <th>Gender</th>
+                                    <th>Phone</th>
+                                    <th>Blood Group</th>
+                                    <th>Diagnosis</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="patientsTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= DOCTORS ================= -->
+            <section class="section" id="doctors">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Doctors</h2>
+
+                        <p>
+                            Manage doctors and specialists.
+                        </p>
+                    </div>
+
+                    <button class="btn primary"
+                            id="addDoctorButton">
+                        + Add Doctor
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="filters">
+
+                        <div class="search-box">
+                            🔍
+                            <input
+                                type="text"
+                                id="doctorSearch"
+                                placeholder="Search doctor..."
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Doctor</th>
+                                    <th>ID</th>
+                                    <th>Specialization</th>
+                                    <th>Phone</th>
+                                    <th>Department</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="doctorsTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= NURSES ================= -->
+            <section class="section" id="nurses">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Nurses</h2>
+
+                        <p>
+                            Manage hospital nursing staff.
+                        </p>
+                    </div>
+
+                    <button class="btn primary"
+                            id="addNurseButton">
+                        + Add Nurse
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="filters">
+
+                        <div class="search-box">
+                            🔍
+                            <input
+                                type="text"
+                                id="nurseSearch"
+                                placeholder="Search nurse..."
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Nurse</th>
+                                    <th>ID</th>
+                                    <th>Department</th>
+                                    <th>Phone</th>
+                                    <th>Shift</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="nursesTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= APPOINTMENTS ================= -->
+            <section class="section" id="appointments">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Appointments</h2>
+
+                        <p>
+                            Schedule and manage appointments.
+                        </p>
+                    </div>
+
+                    <button class="btn primary"
+                            id="addAppointmentButton">
+                        + Add Appointment
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="filters">
+
+                        <div class="search-box">
+                            🔍
+                            <input
+                                type="text"
+                                id="appointmentSearch"
+                                placeholder="Search appointment..."
+                            >
+                        </div>
+
+                        <select id="appointmentStatusFilter">
+
+                            <option value="">
+                                All Statuses
+                            </option>
+
+                            <option value="Scheduled">
+                                Scheduled
+                            </option>
+
+                            <option value="Completed">
+                                Completed
+                            </option>
+
+                            <option value="Cancelled">
+                                Cancelled
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="appointmentsTable"></tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= ANNOUNCEMENTS ================= -->
+            <section class="section" id="announcements">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Announcements</h2>
+
+                        <p>
+                            Create and manage hospital notices.
+                        </p>
+                    </div>
+
+                    <button class="btn primary"
+                            id="addAnnouncementButton">
+                        + New Announcement
+                    </button>
+
+                </div>
+
+
+                <div class="announcement-grid"
+                     id="announcementsGrid">
+                </div>
+
+            </section>
+
+
+            <!-- ================= SETTINGS ================= -->
+            <section class="section" id="settings">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Settings</h2>
+
+                        <p>
+                            Configure hospital information.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="settings-grid">
+
+                    <div class="card settings-card">
+
+                        <h3>Hospital Information</h3>
+
+                        <p>
+                            Update the hospital information.
+                        </p>
+
+                        <form id="settingsForm">
+
+                            <label>
+                                Hospital Name
+
+                                <input
+                                    type="text"
+                                    id="hospitalName"
+                                    required
+                                >
+                            </label>
+
+
+                            <label>
+                                Phone Number
+
+                                <input
+                                    type="text"
+                                    id="hospitalPhone"
+                                    required
+                                >
+                            </label>
+
+
+                            <label>
+                                Email
+
+                                <input
+                                    type="email"
+                                    id="hospitalEmail"
+                                >
+                            </label>
+
+
+                            <label>
+                                Address
+
+                                <textarea
+                                    id="hospitalAddress"
+                                    rows="4"
+                                ></textarea>
+                            </label>
+
+
+                            <button
+                                class="btn primary"
+                                type="submit"
+                            >
+                                Save Settings
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                    <div class="card settings-card">
+
+                        <h3>Data Management</h3>
+
+                        <p>
+                            Manage your demonstration data.
+                        </p>
+
+                        <button
+                            class="btn secondary full"
+                            id="exportButton"
+                        >
+                            Export Data
+                        </button>
+
+                        <button
+                            class="btn danger full"
+                            id="resetButton"
+                        >
+                            Reset Demo Data
+                        </button>
+
+
+                        <div class="warning-box">
+
+                            <strong>Important</strong>
+
+                            <p>
+                                This system uses browser localStorage.
+                                It is suitable for a school project
+                                and demonstration, not real hospital
+                                patient records.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal-overlay" id="modalOverlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <h2 id="modalTitle">
+                    Add Record
+                </h2>
+
+                <p id="modalDescription">
+                    Enter the information below.
+                </p>
+            </div>
+
+            <button
+                class="close-button"
+                id="closeModal"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="recordForm">
+
+            <div
+                class="form-grid"
+                id="formFields">
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn secondary"
+                    id="cancelModal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn primary"
+                >
+                    Save Record
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
